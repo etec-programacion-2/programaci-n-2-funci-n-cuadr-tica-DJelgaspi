@@ -3,30 +3,35 @@
  */
 package org.example
 
-
-
-
-//etapa 1
 fun main() {
     val a = 2
     val b = 5
-    val c = -3
-
-    if (a == 0) {
-        println("El coeficiente 'a' no puede ser cero en una función cuadrática.")
+    val c = -3   
+    
+        if (a == 0) {
+        println("El coeficiente 'a' no puede ser cero. No es una ecuación cuadrática.")
         return
     }
 
     val funcion = buildString {
-        append("${a}x²")
-        if (b != 0) {
-            append(if (b > 0) " + ${b}x" else " - ${-b}x")
-        }
-        if (c != 0) {
-            append(if (c > 0) " + $c" else " - ${-c}")
-        }
+        append("${a}x² ")
+        append(if (b >= 0) "+ $b" else "- ${-b}")
+        append("x ")
+        append(if (c >= 0) "+ $c" else "- ${-c}")
+    }    
+    
+    println("Función ingresada: $funcion = 0\n")
+        
+    println("Tabla de valores:")
+    println("-------------------------")
+    println("|   x   |   f(x) = ax² + bx + c   |")
+    println("-------------------------")
+    for (x in -5..5) {
+        val y = calcularFuncion(a, b, c, x)
+        println(String.format("| %3d   | %8d               |", x, y))
     }
-
-    println("La función cuadrática es: $funcion")
+    println("-------------------------\n")
 }
-
+fun calcularFuncion(a: Int, b: Int, c: Int, x: Int): Int {
+    return a * x * x + b * x + c
+}
