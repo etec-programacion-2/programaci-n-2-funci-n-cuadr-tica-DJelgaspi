@@ -4,34 +4,47 @@
 package org.example
 
 fun main() {
-    val a = 2
-    val b = 5
-    val c = -3   
-    
-        if (a == 0) {
-        println("El coeficiente 'a' no puede ser cero. No es una ecuación cuadrática.")
+    val a = 1.0
+    val b = -3.0
+    val c = 2.0
+
+    // Validar que 'a' no sea cero
+    if (a == 0.0) {
+        println("El coeficiente 'a' no puede ser cero en una función cuadrática.")
         return
     }
 
-    val funcion = buildString {
-        append("${a}x² ")
-        append(if (b >= 0) "+ $b" else "- ${-b}")
-        append("x ")
-        append(if (c >= 0) "+ $c" else "- ${-c}")
-    }    
-    
-    println("Función ingresada: $funcion = 0\n")
-        
-    println("Tabla de valores:")
-    println("-------------------------")
-    println("|   x   |   f(x) = ax² + bx + c   |")
-    println("-------------------------")
-    for (x in -5..5) {
-        val y = calcularFuncion(a, b, c, x)
-        println(String.format("| %3d   | %8d               |", x, y))
+    // Mostrar la función en formato ax² + bx + c
+    println("La función cuadrática es: ${a}x² + ${b}x + ${c}")
+
+
+    fun calcularFuncionCuadratica(x: Double, a: Double, b: Double, c: Double): Double {
+        return a * x * x + b * x + c
     }
-    println("-------------------------\n")
-}
-fun calcularFuncion(a: Int, b: Int, c: Int, x: Int): Int {
-    return a * x * x + b * x + c
+    println("Tabla de valores:")
+    println("x\tf(x)")
+    for (x in -5..5) {
+        val fx = calcularFuncionCuadratica(x.toDouble(), a, b, c)
+        println("$x\t$fx")
+    }
+
+    val discriminante = b * b - 4 * a * c
+
+    // Determinar y mostrar las raíces
+    if (discriminante > 0) {
+        println("La ecuación tiene dos soluciones reales diferentes.")
+        val raiz1 = (-b + Math.sqrt(discriminante)) / (2 * a)
+        val raiz2 = (-b - Math.sqrt(discriminante)) / (2 * a)
+        println("Raíz 1: %.2f".format(raiz1))
+        println("Raíz 2: %.2f".format(raiz2))
+    }
+    else if (discriminante == 0.0) {
+        println("La ecuación tiene una solución real doble.")
+        val raizUnica = -b / (2 * a)
+        println("Raíz única: %.2f".format(raizUnica))
+    }
+    else {
+        println("La ecuación no tiene soluciones reales.")
+    }
+   
 }
